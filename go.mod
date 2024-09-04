@@ -112,7 +112,7 @@ require (
 	github.com/hashicorp/go-sockaddr v1.0.6
 	github.com/hashicorp/go-syslog v1.0.0
 	github.com/hashicorp/go-uuid v1.0.3
-	github.com/hashicorp/go-version v1.6.0
+	github.com/hashicorp/go-version v1.7.0
 	github.com/hashicorp/golang-lru v1.0.2
 	github.com/hashicorp/golang-lru/v2 v2.0.7
 	github.com/hashicorp/hcl v1.0.1-vault-5
@@ -151,7 +151,7 @@ require (
 	github.com/hashicorp/vault-plugin-secrets-kv v0.19.0
 	github.com/hashicorp/vault-plugin-secrets-mongodbatlas v0.12.0
 	github.com/hashicorp/vault-plugin-secrets-openldap v0.13.0
-	github.com/hashicorp/vault-plugin-secrets-terraform v0.9.0
+	github.com/hashicorp/vault-plugin-secrets-terraform v0.9.1-0.20240901001914-1b04c25158a2
 	github.com/hashicorp/vault-testing-stepwise v0.1.4
 	github.com/hashicorp/vault/api v1.17.1
 	github.com/hashicorp/vault/api/auth/approle v0.1.0
@@ -397,8 +397,8 @@ require (
 	github.com/hashicorp/go-msgpack/v2 v2.1.2 // indirect
 	github.com/hashicorp/go-secure-stdlib/fileutil v0.1.0 // indirect
 	github.com/hashicorp/go-secure-stdlib/plugincontainer v0.3.0 // indirect
-	github.com/hashicorp/go-slug v0.15.0 // indirect
-	github.com/hashicorp/go-tfe v1.61.0 // indirect
+	github.com/hashicorp/go-slug v0.15.2 // indirect
+	github.com/hashicorp/go-tfe v1.64.2 // indirect
 	github.com/hashicorp/jsonapi v1.3.1 // indirect
 	github.com/hashicorp/logutils v1.0.0 // indirect
 	github.com/hashicorp/mdns v1.0.4 // indirect
@@ -520,7 +520,7 @@ require (
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
 	golang.org/x/mod v0.17.0 // indirect
-	golang.org/x/time v0.5.0 // indirect
+	golang.org/x/time v0.6.0 // indirect
 	google.golang.org/genproto v0.0.0-20240520151616-dc85e6b867a5 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20240903143218-8af14fe29dc1 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240827150818-7e3bb234dfed // indirect; indirect\

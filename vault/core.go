@@ -1619,6 +1619,8 @@ func (c *Core) Unseal(key []byte) (bool, error) {
 // .seal, which must already be populated before unseal is called.)
 func (c *Core) unsealFragment(key []byte, migrate bool) error {
 	defer metrics.MeasureSince([]string{"core", "unseal"}, time.Now())
+	c.logger.Debug("entering unsealFragment")
+	defer c.logger.Debug("exiting unsealFragment")
 
 	c.stateLock.Lock()
 	defer c.stateLock.Unlock()
@@ -1700,6 +1702,9 @@ func (c *Core) unsealFragment(key []byte, migrate bool) error {
 }
 
 func (c *Core) unsealWithRaft(combinedKey []byte) error {
+	c.logger.Debug("entering unsealWithRaft")
+	defer c.logger.Debug("exiting unsealWithRaft")
+
 	ctx := context.Background()
 
 	if c.seal.BarrierSealConfigType() == SealConfigTypeShamir {
@@ -2016,6 +2021,8 @@ func (c *Core) migrateSeal(ctx context.Context) error {
 // unsealInternal takes in the master key and attempts to unseal the barrier.
 // N.B.: This must be called with the state write lock held.
 func (c *Core) unsealInternal(ctx context.Context, masterKey []byte) error {
+	c.logger.Debug("entering unsealInternal")
+	defer c.logger.Debug("exiting unsealInternal")
 	// Attempt to unlock
 	if err := c.barrier.Unseal(ctx, masterKey); err != nil {
 		return err
@@ -2422,6 +2429,8 @@ type UnsealStrategy interface {
 type standardUnsealStrategy struct{}
 
 func (s standardUnsealStrategy) unseal(ctx context.Context, logger log.Logger, c *Core) error {
+	c.logger.Debug("entering standardUnsealStrategy unseal")
+	defer c.logger.Debug("exiting standardUnsealStrategy unseal")
 	// Clear forwarding clients; we're active
 	c.requestForwardingConnectionLock.Lock()
 	c.clearForwardingClients()
@@ -2555,6 +2564,8 @@ func (c *Core) setupPluginCatalog(ctx context.Context) error {
 // Core's replication state, that can be passed to the runUnsealSetupFunctions
 // function.
 func buildUnsealSetupFunctionSlice(c *Core) []func(context.Context) error {
+	c.logger.Debug("entering buildUnsealSetupFunctionSlice")
+	defer c.logger.Debug("exiting buildUnsealSetupFunctionSlice")
 	// setupFunctions is a slice of functions that need to be called in order,
 	// that if any return an error, processing should immediately cease.
 	setupFunctions := []func(context.Context) error{
@@ -2702,6 +2713,9 @@ func (c *Core) runUnsealSetupForPrimary(ctx context.Context, logger log.Logger) 
 // credential stores, etc.
 func (c *Core) postUnseal(ctx context.Context, ctxCancelFunc context.CancelFunc, unsealer UnsealStrategy) (retErr error) {
 	defer metrics.MeasureSince([]string{"core", "post_unseal"}, time.Now())
+
+	c.logger.Debug("entering postUnseal")
+	defer c.logger.Debug("exiting postUnseal")
 
 	// Clear any out
 	c.postUnsealFuncs = nil
@@ -3735,6 +3749,12 @@ func (c *Core) autoRotateBarrierLoop(ctx context.Context) {
 	for {
 		select {
 		case <-t.C:
+			select {
+			default:
+			case <-ctx.Done():
+				t.Stop()
+				return
+			}
 			c.checkBarrierAutoRotate(ctx)
 		case <-ctx.Done():
 			t.Stop()

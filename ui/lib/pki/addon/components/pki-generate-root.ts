@@ -40,7 +40,7 @@ interface Args {
  *
  * @example
  * ```js
- * <PkiGenerateRoot @model={{this.model}} @onCancel={{transition-to "vault.cluster"}} @onSave={{fn (mut this.title) "Successful"}} @adapterOptions={{hash actionType="import" useIssuer=false}} />
+ * <PkiGenerateRoot @model={{this.model}} @onCancel={{engine-transition-to "vault.cluster"}} @onSave={{fn (mut this.title) "Successful"}} @adapterOptions={{hash actionType="import" useIssuer=false}} />
  * ```
  *
  * @param {Object} model - pki/action model.
@@ -51,7 +51,7 @@ interface Args {
  */
 export default class PkiGenerateRootComponent extends Component<Args> {
   @service declare readonly flashMessages: FlashMessageService;
-  @service declare readonly router: RouterService;
+  @service('app-router') declare readonly router: RouterService;
 
   @tracked modelValidations: ValidationMap | null = null;
   @tracked errorBanner = '';
